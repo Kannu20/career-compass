@@ -117,32 +117,30 @@
 
 "use client";
 
-import UserSummary from "@/components/dashboard/UserSummary";
-import OverallScore from "@/components/dashboard/OverallScore";
-import SkillBreakdown from "@/components/dashboard/SkillBreakdown";
-import NextSteps from "@/components/dashboard/NextSteps";
-import SkillRadar from "@/components/dashboard/SkillRadar";
-import SkillBarChart from "@/components/dashboard/SkillBarChart";
-import { useDashboard } from "@/hooks/useDashboard";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export default function DashboardPage() {
-  const { data, loading } = useDashboard();
+export default function DashboardRedirect() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
 
-  if (loading) return <p className="text-white">Loading...</p>;
-  if (!data) return null;
+  useEffect(() => {
+    if (loading) return;
 
-  return (
-    <div className="space-y-10">
-      <UserSummary />
-      <OverallScore score={data.overallScore} />
-      <SkillBreakdown skills={data.skills} />
+    if (!user) {
+      router.replace("/dashboard/student");
+      return;
+    }
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <SkillRadar skills={data.skills} />
-        <SkillBarChart skills={data.skills} />
-      </div>
+    if (user.roleStatus === "pending") {
+      router.replace("/approval-pending");
+      return;
+    }
 
-      <NextSteps />
-    </div>
-  );
+    // ROLE BASED REDIRECT
+    router.replace(`/dashboard/${user.role}`);
+  }, [user, loading, router]);
+
+  return null;
 }

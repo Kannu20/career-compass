@@ -146,177 +146,108 @@
 //   );
 // }
 
+// src/app/register/page.tsx
 "use client";
 
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import api from "@/lib/api";
+import { GraduationCap, Users, Building2, ArrowRight } from "lucide-react";
 
-const roles = [
-  {
-    key: "student",
-    label: "🎓 Student",
-    desc: "Access placement readiness dashboard",
-  },
-  {
-    key: "mentor",
-    label: "🧑‍🏫 Apply as Mentor",
-    desc: "Guide students after approval",
-  },
-  {
-    key: "tpo",
-    label: "🏢 Apply as TPO",
-    desc: "Manage college placement data",
-  },
-];
+type Role = "student" | "mentor" | "tpo";
 
-export default function RegisterPage() {
+export default function RegisterRolePage() {
+  const [role, setRole] = useState<Role | null>(null);
   const router = useRouter();
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    requestedRole: null as "mentor" | "tpo" | null,
-  });
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleRegister = async () => {
-    setError("");
-    setLoading(true);
-
-    try {
-      await api.post("/api/auth/register", {
-        name: form.name,
-        email: form.email,
-        password: form.password,
-        requestedRole: form.requestedRole, // mentor | tpo | null
-      });
-
-    } catch (err: any) {
-      setError(err.message || "Registration failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const roles = [
+    {
+      key: "student",
+      title: "Student",
+      desc: "Track placement readiness & career growth",
+      icon: GraduationCap,
+      color: "indigo",
+    },
+    {
+      key: "mentor",
+      title: "Mentor",
+      desc: "Guide students with your expertise",
+      icon: Users,
+      color: "emerald",
+    },
+    {
+      key: "tpo",
+      title: "TPO",
+      desc: "Manage placements & student performance",
+      icon: Building2,
+      color: "orange",
+    },
+  ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-black to-gray-900 px-4">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 40 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-[400px] bg-white/10 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-white/10"
-      >
-        <h1 className="text-2xl font-bold text-white text-center mb-2">
-          Create Account 🚀
-        </h1>
-        <p className="text-sm text-gray-400 text-center mb-5">
-          Choose your role to get started
-        </p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-slate-900 to-black px-4">
+      <div className="w-full max-w-4xl">
 
-        {error && (
-          <motion.p
-            initial={{ x: -10, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            className="text-red-400 text-sm mb-3 text-center"
-          >
-            {error}
-          </motion.p>
-        )}
-
-        {/* Name */}
-        <input
-          name="name"
-          placeholder="Full Name"
-          value={form.name}
-          onChange={handleChange}
-          className="w-full mb-3 px-3 py-2 rounded bg-black/40 text-white outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-
-        {/* Email */}
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          className="w-full mb-3 px-3 py-2 rounded bg-black/40 text-white outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-
-        {/* Password */}
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-          className="w-full mb-4 px-3 py-2 rounded bg-black/40 text-white outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-
-        {/* ROLE SELECTION */}
-        <div className="mb-6">
-          <p className="text-sm text-gray-300 mb-2">Register as</p>
-
-          <div className="space-y-2">
-            {roles.map((r) => (
-              <button
-                key={r.key}
-                type="button"
-                onClick={() =>
-                  setForm({
-                    ...form,
-                    requestedRole: r.key === "student" ? null : (r.key as any),
-                  })
-                }
-                className={`w-full text-left px-4 py-3 rounded-lg border transition
-          ${form.requestedRole === r.key ||
-                    (r.key === "student" && form.requestedRole === null)
-                    ? "bg-indigo-600 border-indigo-500 text-white"
-                    : "bg-white/5 border-white/20 text-gray-300 hover:bg-white/10"
-                  }`}
-              >
-                <div className="font-semibold">{r.label}</div>
-                <div className="text-xs text-gray-300">{r.desc}</div>
-              </button>
-            ))}
-          </div>
+        {/* Header */}
+        <div className="text-center mb-10">
+          <h1 className="text-3xl font-semibold text-white mt-3">
+            Choose Your Role
+          </h1>
+          <p className="text-slate-400 mt-2 mb-3">
+            Select how you want to use CareerCompass
+          </p>
         </div>
 
+        {/* Role Cards */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {roles.map((r) => {
+            const Icon = r.icon;
+            const active = role === r.key;
 
-        {/* Register Button */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          disabled={loading}
-          onClick={handleRegister}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-semibold transition"
-        >
-          {loading ? "Creating Account..." : "Register"}
-        </motion.button>
+            return (
+              <button
+                key={r.key}
+                onClick={() => setRole(r.key as Role)}
+                className={`text-left rounded-2xl border p-6 transition
+                  ${
+                    active
+                      ? `border-${r.color}-500 bg-${r.color}-500/10`
+                      : "border-slate-800 bg-slate-900/60 hover:border-slate-700"
+                  }`}
+              >
+                <div
+                  className={`h-12 w-12 rounded-lg flex items-center justify-center mb-4 mt-3 gap-3
+                    ${
+                      active
+                        ? `bg-${r.color}-500 text-white`
+                        : "bg-slate-800 text-slate-400"
+                    }`}
+                >
+                  <Icon />
+                </div>
 
-        <p className="text-xs text-gray-400 mt-3 text-center">
-          Mentor and TPO roles require approval before activation.
-        </p>
+                <h3 className="text-lg font-medium text-white">
+                  {r.title}
+                </h3>
+                <p className="text-sm text-slate-400 mt-1">
+                  {r.desc}
+                </p>
+              </button>
+            );
+          })}
+        </div>
 
-        {/* Footer */}
-        <p className="text-sm text-gray-400 text-center mt-4">
-          Already have an account?{" "}
-          <span
-            onClick={() => router.push("/auth/login")}
-            className="text-indigo-400 cursor-pointer hover:underline"
+        {/* Continue Button */}
+        <div className=" flex justify-center mt-10 px-2 py-5">
+          <button
+            disabled={!role}
+            onClick={() => router.push(`/auth/register/${role}`)}
+            className="flex items-center gap-2 px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 transition text-white font-medium disabled:opacity-40 disabled:cursor-not-allowed mt-3"
           >
-            Login
-          </span>
-        </p>
-      </motion.div>
+            Continue
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
