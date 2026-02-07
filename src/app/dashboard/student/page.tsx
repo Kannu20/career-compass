@@ -55,16 +55,19 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-10">
-      <UserSummary />
+      <UserSummary user={data.user} />
+
       <OverallScore score={data.overallScore} />
+
       <SkillBreakdown skills={data.skills} />
+
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <SkillRadar skills={data.skills} />
         <SkillBarChart skills={data.skills} />
       </div>
 
-      <NextSteps />
+       <NextSteps steps={data.nextSteps} />
     </div>
   );
 }

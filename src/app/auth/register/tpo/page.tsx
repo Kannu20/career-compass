@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { signOut } from "firebase/auth";
 import {
   User,
   Mail,
@@ -32,6 +34,48 @@ export default function TPORegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [pending, setPending] = useState(false);
+
+  useEffect(() => {
+  const checkStatus = async () => {
+    try {
+      const res = await api.get("/api/user/me");
+      const user = res.data?.data;
+
+      if (!user) return;
+
+      // 🟡 PENDING
+      if (user.roleStatus === "pending") {
+        setPending(true);
+        setSuccess("Your application is pending admin approval.");
+      }
+
+      // 🟢 APPROVED → AUTO LOGOUT
+      if (
+        user.roleStatus === "approved" &&
+        (user.role === "mentor" || user.role === "tpo")
+      ) {
+        toast.success("Role approved! Please login again.");
+
+        setTimeout(async () => {
+          await signOut(auth);      // 🔐 Firebase logout
+          localStorage.clear();    // optional but safe
+          router.replace("/auth/login");
+        }, 1800);
+      }
+
+      // 🔴 REJECTED
+      if (user.roleStatus === "rejected") {
+        setError("Your request was rejected by admin.");
+        setPending(false);
+      }
+    } catch {
+      // ignore
+    }
+  };
+
+  checkStatus();
+}, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -76,13 +120,13 @@ export default function TPORegisterPage() {
 
       // 4️⃣ SHOW SUCCESS
       setSuccess(
-        "TPO registration submitted successfully. Admin verification is required."
+        "TPO registration submitted successfully. Admin verification is required.  Wait 24-48 hours."
       );
 
       // 5️⃣ REDIRECT TO APPROVAL PAGE
-      setTimeout(() => {
-        router.replace("/approval-pending");
-      }, 1800);
+      // setTimeout(() => {
+      //   router.replace("/approval-pending");
+      // }, 1800);
 
     } catch (err: any) {
       if (err.code === "auth/email-already-in-use") {
@@ -206,11 +250,12 @@ export default function TPORegisterPage() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || pending}
             className="w-full flex items-center justify-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition text-white py-2 font-medium disabled:opacity-60"
           >
             {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-            Apply as TPO
+            {pending ? "Approval Pending" : "Apply as TPO"}
+            {/* Apply as TPO */}
           </button>
         </form>
 

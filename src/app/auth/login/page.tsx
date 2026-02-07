@@ -4,6 +4,8 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+
 import {
   GoogleAuthProvider,
   signInWithPopup,
@@ -22,68 +24,41 @@ export default function LoginPage() {
   const [error, setError] = useState("");
 
 
-  // const postLoginRedirect = (user: any) => {
-  //   if (user.roleStatus === "pending") {
-  //     router.replace("/approval-pending");
-  //   } else {
-  //     router.replace("/dashboard");
-  //   }
-  // };
-
-  // const handleLogin = async () => {
-  //   setError("");
-  //   setLoading(true);
-
-  //   try {
-  //     const cred = await signInWithEmailAndPassword(auth, email, password);
-  //     const firebaseToken = await cred.user.getIdToken(true);
-
-  //     const res = await api.post("/api/auth/firebase", { firebaseToken });
-  //     const { token, user } = res.data.data;
-
-  //     localStorage.setItem("token", token);
-  //     // postLoginRedirect(user);
-  //      router.replace("/"); 
-  //   } catch (err: any) {
-  //     setError(err.message || "Invalid email or password");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const handleLogin = async () => {
-  setError("");
-  setLoading(true);
+    setError("");
+    setLoading(true);
 
-  try {
-    const cred = await signInWithEmailAndPassword(auth, email, password);
-    const firebaseToken = await cred.user.getIdToken(true);
+    try {
+      const cred = await signInWithEmailAndPassword(auth, email, password);
+      const firebaseToken = await cred.user.getIdToken(true);
 
-    const res = await api.post("/api/auth/firebase", { firebaseToken });
-    const { token, user } = res.data.data;
+      const res = await api.post("/api/auth/firebase", { firebaseToken });
+      const { token, user } = res.data.data;
 
-    localStorage.setItem("token", token);
+      localStorage.setItem("token", token);
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-    // 🔥 LOGIN SUCCESS → REDIRECT HERE
-    if (user.roleStatus === "pending") {
-      router.replace("/approval-pending");
-      return;
+      // 🔥 LOGIN SUCCESS → REDIRECT HERE
+      if (user.roleStatus === "pending") {
+        router.replace("/approval-pending");
+        return;
+      }
+
+      if (user.role === "student") {
+        router.replace("/dashboard/student");
+      } else if (user.role === "mentor") {
+        router.replace("/dashboard/mentor");
+      } else if (user.role === "tpo") {
+        router.replace("/dashboard/tpo");
+      }
+
+    } catch (err: any) {
+      setError(err.message || "Invalid email or password");
+    } finally {
+      setLoading(false);
     }
+  };
 
-    if (user.role === "student") {
-      router.replace("/dashboard/student");
-    } else if (user.role === "mentor") {
-      router.replace("/dashboard/mentor");
-    } else if (user.role === "tpo") {
-      router.replace("/dashboard/tpo");
-    }
-
-  } catch (err: any) {
-    setError(err.message || "Invalid email or password");
-  } finally {
-    setLoading(false);
-  }
-};
 
   const handleGoogleLogin = async () => {
     setError("");

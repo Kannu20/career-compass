@@ -1,7 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { signOut } from "firebase/auth";
+
 import {
   User,
   Mail,
@@ -31,12 +34,77 @@ export default function MentorRegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [pending, setPending] = useState(false);
+
+
+  // useEffect(() => {
+  //       const checkStatus = async () => {
+  //         try {
+  //           const res = await api.get("/api/user/me");
+  //           const user = res.data.data;
+
+  //           if (user.roleStatus === "approved" && user.role === "mentor") {
+  //             setSuccess(
+  //               "Approved! Please logout and login again as Mentor."
+  //             );
+  //           }
+
+  //           if (user.roleStatus === "rejected") {
+  //             setError("Your request was rejected by admin.");
+  //           }
+  //         } catch { }
+  //       };
+
+  //       checkStatus();
+  //     }, []);
+
+  useEffect(() => {
+  const checkStatus = async () => {
+    try {
+      const res = await api.get("/api/user/me");
+      const user = res.data?.data;
+
+      if (!user) return;
+
+      // 🟡 PENDING
+      if (user.roleStatus === "pending") {
+        setPending(true);
+        setSuccess("Your application is pending admin approval.");
+      }
+
+      // 🟢 APPROVED → AUTO LOGOUT
+      if (
+        user.roleStatus === "approved" &&
+        (user.role === "mentor" || user.role === "tpo")
+      ) {
+        toast.success("Role approved! Please login again.");
+
+        setTimeout(async () => {
+          await signOut(auth);      // 🔐 Firebase logout
+          localStorage.clear();    // optional but safe
+          router.replace("/auth/login");
+        }, 1800);
+      }
+
+      // 🔴 REJECTED
+      if (user.roleStatus === "rejected") {
+        setError("Your request was rejected by admin.");
+        setPending(false);
+      }
+    } catch {
+      // ignore
+    }
+  };
+
+  checkStatus();
+}, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,15 +141,17 @@ export default function MentorRegisterPage() {
         linkedin,
       });
 
+      
+
       // Mentor is always pending approval
       setSuccess(
-        "Your mentor application has been submitted. Admin approval is required."
+        "Your mentor application has been submitted. Admin approval is required. Wait 24-48 hours."
       );
 
       // 4️⃣ Redirect to approval-pending (not login)
-      setTimeout(() => {
-        router.replace("/approval-pending");
-      }, 1800);
+      // setTimeout(() => {
+      //   router.replace("/approval-pending");
+      // }, 1800);
 
     } catch (err: any) {
       if (err.code === "auth/email-already-in-use") {
@@ -208,10 +278,11 @@ export default function MentorRegisterPage() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || pending}
             className="w-full flex items-center justify-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition text-white py-2 font-medium disabled:opacity-60"
           >
             {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+             {pending ? "Approval Pending" : "Apply as Mentor"}
             Apply as Mentor
           </button>
         </form>

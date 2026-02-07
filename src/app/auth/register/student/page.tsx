@@ -74,7 +74,7 @@ export default function StudentRegisterPage() {
       localStorage.setItem("token", token);
 
       // 5️⃣ REDIRECT
-      router.replace("/dashboard");
+      router.replace("/dashboard/student");
 
     } catch (err: any) {
       if (err.code === "auth/email-already-in-use") {

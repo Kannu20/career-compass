@@ -64,11 +64,9 @@
 
 //   const deleteUser = async (id: string) => {
 //     if (!confirm("Are you sure you want to delete this user?")) return;
-
 //     await api.delete(`/api/admin/users/${id}`);
 //     fetchUsers();
 //   };
-
 
 //   return (
 //     <div className="space-y-6">
@@ -104,7 +102,7 @@
 //         <select
 //           value={status}
 //           onChange={(e) => setStatus(e.target.value)}
-//           className="px-3 py-2  rounded bg-black/40 border border-white/20 text-white"
+//           className="px-3 py-2 rounded bg-black/40 border border-white/20 text-white"
 //         >
 //           <option value="">All Status</option>
 //           <option value="approved">Approved</option>
@@ -123,7 +121,7 @@
 //       {/* Table */}
 //       <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
 //         <table className="w-full text-sm">
-//           <thead className="bg-black/10 text-black-300">
+//           <thead className="bg-black/10">
 //             <tr>
 //               <th className="p-4 text-left">Name</th>
 //               <th className="p-4 text-left">Email</th>
@@ -132,20 +130,19 @@
 //               <th className="p-4 text-left">Provider</th>
 //               <th className="p-4 text-left">Joined</th>
 //               <th className="p-4 text-left">Actions</th>
-
 //             </tr>
 //           </thead>
 
 //           <tbody>
 //             {loading ? (
 //               <tr>
-//                 <td colSpan={6} className="p-6 text-center text-gray-400">
+//                 <td colSpan={7} className="p-6 text-center text-gray-400">
 //                   Loading users...
 //                 </td>
 //               </tr>
 //             ) : users.length === 0 ? (
 //               <tr>
-//                 <td colSpan={6} className="p-6 text-center text-gray-400">
+//                 <td colSpan={7} className="p-6 text-center text-gray-400">
 //                   No users found
 //                 </td>
 //               </tr>
@@ -175,64 +172,62 @@
 //                       <button
 //                         onClick={() => deleteUser(u._id)}
 //                         className="p-2 rounded bg-red-600/20 hover:bg-red-600/40"
-//                         {editingUser && (
-//                           <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-//                             <div className="bg-slate-900 border border-white/20 rounded-xl p-6 w-96 space-y-4">
-//                               <h2 className="text-lg font-semibold text-white">
-//                                 Edit User
-//                               </h2>
-
-//                               <select
-//                                 value={editRole}
-//                                 onChange={(e) => setEditRole(e.target.value)}
-//                                 className="w-full px-3 py-2 bg-black/40 border border-white/20 rounded text-white"
-//                               >
-//                                 <option value="student">Student</option>
-//                                 <option value="mentor">Mentor</option>
-//                                 <option value="tpo">TPO</option>
-//                                 <option value="admin">Admin</option>
-//                               </select>
-
-//                               <select
-//                                 value={editStatus}
-//                                 onChange={(e) => setEditStatus(e.target.value)}
-//                                 className="w-full px-3 py-2 bg-black/40 border border-white/20 rounded text-white"
-//                               >
-//                                 <option value="approved">Approved</option>
-//                                 <option value="pending">Pending</option>
-//                                 <option value="rejected">Rejected</option>
-//                               </select>
-
-//                               <div className="flex justify-end gap-3">
-//                                 <button
-//                                   onClick={() => setEditingUser(null)}
-//                                   className="px-4 py-2 rounded bg-white/10"
-//                                 >
-//                                   Cancel
-//                                 </button>
-//                                 <button
-//                                   onClick={updateUser}
-//                                   className="px-4 py-2 rounded bg-indigo-600 hover:bg-indigo-700"
-//                                 >
-//                                   Save
-//                                 </button>
-//                               </div>
-//                             </div>
-//                           </div>
-//                         )}
-
 //                       >
 //                         <Trash2 size={16} />
 //                       </button>
 //                     )}
 //                   </td>
-
 //                 </tr>
 //               ))
 //             )}
 //           </tbody>
 //         </table>
 //       </div>
+
+//       {/* EDIT MODAL */}
+//       {editingUser && (
+//         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+//           <div className="bg-slate-900 border border-white/20 rounded-xl p-6 w-96 space-y-4">
+//             <h2 className="text-lg font-semibold text-white">Edit User</h2>
+
+//             <select
+//               value={editRole}
+//               onChange={(e) => setEditRole(e.target.value)}
+//               className="w-full px-3 py-2 bg-black/40 border border-white/20 rounded text-white"
+//             >
+//               <option value="student">Student</option>
+//               <option value="mentor">Mentor</option>
+//               <option value="tpo">TPO</option>
+//               <option value="admin">Admin</option>
+//             </select>
+
+//             <select
+//               value={editStatus}
+//               onChange={(e) => setEditStatus(e.target.value)}
+//               className="w-full px-3 py-2 bg-black/40 border border-white/20 rounded text-white"
+//             >
+//               <option value="approved">Approved</option>
+//               <option value="pending">Pending</option>
+//               <option value="rejected">Rejected</option>
+//             </select>
+
+//             <div className="flex justify-end gap-3">
+//               <button
+//                 onClick={() => setEditingUser(null)}
+//                 className="px-4 py-2 rounded bg-white/10"
+//               >
+//                 Cancel
+//               </button>
+//               <button
+//                 onClick={updateUser}
+//                 className="px-4 py-2 rounded bg-indigo-600 hover:bg-indigo-700"
+//               >
+//                 Save
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
 //     </div>
 //   );
 // }
@@ -241,7 +236,7 @@
 
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Loader2 } from "lucide-react";
 
 type User = {
   _id: string;
@@ -256,6 +251,7 @@ type User = {
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
 
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [editRole, setEditRole] = useState("");
@@ -273,7 +269,7 @@ export default function AdminUsersPage() {
       });
       setUsers(res.data.data);
     } catch (err) {
-      console.error("Failed to load users", err);
+      alert("Failed to load users");
     } finally {
       setLoading(false);
     }
@@ -292,28 +288,54 @@ export default function AdminUsersPage() {
   const updateUser = async () => {
     if (!editingUser) return;
 
-    await api.patch(`/api/admin/users/${editingUser._id}`, {
-      role: editRole,
-      roleStatus: editStatus,
-    });
+    try {
+      setActionLoading(true);
 
-    setEditingUser(null);
-    fetchUsers();
+      await api.patch(`/api/admin/users/${editingUser._id}`, {
+        role: editRole,
+        roleStatus: editStatus,
+      });
+
+      // Optimistic update
+      setUsers((prev) =>
+        prev.map((u) =>
+          u._id === editingUser._id
+            ? { ...u, role: editRole, roleStatus: editStatus }
+            : u
+        )
+      );
+
+      setEditingUser(null);
+    } catch {
+      alert("Failed to update user");
+    } finally {
+      setActionLoading(false);
+    }
   };
 
   const deleteUser = async (id: string) => {
     if (!confirm("Are you sure you want to delete this user?")) return;
-    await api.delete(`/api/admin/users/${id}`);
-    fetchUsers();
+
+    try {
+      setActionLoading(true);
+
+      // Optimistic remove
+      setUsers((prev) => prev.filter((u) => u._id !== id));
+
+      await api.delete(`/api/admin/users/${id}`);
+    } catch {
+      alert("Failed to delete user");
+      fetchUsers(); // rollback
+    } finally {
+      setActionLoading(false);
+    }
   };
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Users</h1>
-        <p className="text-gray-400">
-          View and manage all registered users
-        </p>
+        <h1 className="text-2xl font-bold">Users</h1>
+        <p className="text-gray-400"> View and manage all registered users </p>
       </div>
 
       {/* Filters */}
@@ -357,16 +379,16 @@ export default function AdminUsersPage() {
         </button>
       </div>
 
-      {/* Table */}
-      <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
-        <table className="w-full text-sm">
+
+      {/* TABLE */}
+      <div className="bg-white/5 border border-white/10 rounded-xl overflow-x-auto">
+        <table className="min-w-full text-sm">
           <thead className="bg-black/10">
             <tr>
               <th className="p-4 text-left">Name</th>
               <th className="p-4 text-left">Email</th>
               <th className="p-4 text-left">Role</th>
               <th className="p-4 text-left">Status</th>
-              <th className="p-4 text-left">Provider</th>
               <th className="p-4 text-left">Joined</th>
               <th className="p-4 text-left">Actions</th>
             </tr>
@@ -375,34 +397,31 @@ export default function AdminUsersPage() {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={7} className="p-6 text-center text-gray-400">
-                  Loading users...
+                <td colSpan={6} className="p-6 text-center">
+                  Loading…
                 </td>
               </tr>
             ) : users.length === 0 ? (
               <tr>
-                <td colSpan={7} className="p-6 text-center text-gray-400">
+                <td colSpan={6} className="p-6 text-center text-gray-400">
                   No users found
                 </td>
               </tr>
             ) : (
               users.map((u) => (
-                <tr
-                  key={u._id}
-                  className="border-t border-white/10 hover:bg-white/5"
-                >
+                <tr key={u._id} className="border-t border-white/10">
                   <td className="p-4">{u.name}</td>
                   <td className="p-4">{u.email}</td>
                   <td className="p-4 capitalize">{u.role}</td>
                   <td className="p-4 capitalize">{u.roleStatus}</td>
-                  <td className="p-4">{u.provider}</td>
-                  <td className="p-4 text-gray-400">
+                  <td className="p-4">
                     {new Date(u.createdAt).toLocaleDateString()}
                   </td>
                   <td className="p-4 flex gap-3">
                     <button
                       onClick={() => openEdit(u)}
-                      className="p-2 rounded bg-indigo-600/20 hover:bg-indigo-600/40"
+                      disabled={actionLoading}
+                      className="p-2 rounded bg-indigo-600/20 hover:bg-indigo-600/40 disabled:opacity-50"
                     >
                       <Pencil size={16} />
                     </button>
@@ -410,7 +429,8 @@ export default function AdminUsersPage() {
                     {u.role !== "admin" && (
                       <button
                         onClick={() => deleteUser(u._id)}
-                        className="p-2 rounded bg-red-600/20 hover:bg-red-600/40"
+                        disabled={actionLoading}
+                        className="p-2 rounded bg-red-600/20 hover:bg-red-600/40 disabled:opacity-50"
                       >
                         <Trash2 size={16} />
                       </button>
@@ -425,14 +445,14 @@ export default function AdminUsersPage() {
 
       {/* EDIT MODAL */}
       {editingUser && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-          <div className="bg-slate-900 border border-white/20 rounded-xl p-6 w-96 space-y-4">
-            <h2 className="text-lg font-semibold text-white">Edit User</h2>
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
+          <div className="bg-slate-900 border border-white/20 rounded-xl p-6 w-full max-w-sm space-y-4">
+            <h2 className="text-lg font-semibold">Edit User</h2>
 
             <select
               value={editRole}
               onChange={(e) => setEditRole(e.target.value)}
-              className="w-full px-3 py-2 bg-black/40 border border-white/20 rounded text-white"
+              className="w-full px-3 py-2 bg-black/40 border border-white/20 rounded"
             >
               <option value="student">Student</option>
               <option value="mentor">Mentor</option>
@@ -443,7 +463,7 @@ export default function AdminUsersPage() {
             <select
               value={editStatus}
               onChange={(e) => setEditStatus(e.target.value)}
-              className="w-full px-3 py-2 bg-black/40 border border-white/20 rounded text-white"
+              className="w-full px-3 py-2 bg-black/40 border border-white/20 rounded"
             >
               <option value="approved">Approved</option>
               <option value="pending">Pending</option>
@@ -453,14 +473,19 @@ export default function AdminUsersPage() {
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setEditingUser(null)}
-                className="px-4 py-2 rounded bg-white/10"
+                className="px-4 py-2 bg-white/10 rounded"
               >
                 Cancel
               </button>
+
               <button
                 onClick={updateUser}
-                className="px-4 py-2 rounded bg-indigo-600 hover:bg-indigo-700"
+                disabled={actionLoading}
+                className="px-4 py-2 bg-indigo-600 rounded flex items-center gap-2 disabled:opacity-50"
               >
+                {actionLoading && (
+                  <Loader2 size={16} className="animate-spin" />
+                )}
                 Save
               </button>
             </div>
