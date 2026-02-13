@@ -66,3 +66,4 @@ firebase-debug.log
 # -----------------------------
 *.local
 *.cache
+server/src/config/firebaseServiceAccount.json
