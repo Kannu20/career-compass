@@ -65,3 +65,4 @@ temp/
 
 firebase-debug.log
 .firebaserc
+server/src/config/firebaseServiceAccount.json
