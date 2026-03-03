@@ -3,9 +3,15 @@
 import { useAuth } from "@/context/AuthContext";
 import { motion } from "framer-motion";
 
-export default function UserSummary() {
-  const { user } = useAuth();
+interface UserSummaryProps {
+  user: {
+    name: string;
+    email: string;
+    role: string;
+  };
+}
 
+export default function UserSummary({ user }: UserSummaryProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

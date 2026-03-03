@@ -1,7 +1,21 @@
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
 
+// interface DashboardData {
+//   overallScore: number;
+//   skills: {
+//     dsa: number;
+//     core: number;
+//     projects: number;
+//     resume: number;
+//   };
+// }
 interface DashboardData {
+  user: {
+    name: string;
+    email: string;
+    role: string;
+  };
   overallScore: number;
   skills: {
     dsa: number;
@@ -9,6 +23,7 @@ interface DashboardData {
     projects: number;
     resume: number;
   };
+  nextSteps: string[];
 }
 
 export const useDashboard = () => {
