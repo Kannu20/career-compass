@@ -15,14 +15,7 @@ export const useDashboard = () => {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   api
-  //     .get("/api/dashboard/summary")
-  //     .then((res) => setData(res.data.data))
-  //     .finally(() => setLoading(false));
-  // }, []);
 
-  // return { data, loading };
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
