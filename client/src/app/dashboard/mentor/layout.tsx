@@ -10,7 +10,7 @@ export default function MentorLayout({ children }: { children: ReactNode }) {
       <MentorSidebar />
 
       <div className="flex-1 flex flex-col">
-        <Navbar role="mentor" />
+        <Navbar />
         <main className="p-6">{children}</main>
       </div>
     </div>
