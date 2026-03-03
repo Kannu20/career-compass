@@ -1,11 +1,11 @@
 
 
-import { Response } from "express";
+import {Request, Response } from "express";
 import TestAttemptModel from "../models/TestAttempt.model";
-import { AuthRequest } from "../middlewares/auth.middleware";
+// import { AuthRequest } from "../middlewares/auth.middleware";
 
 export const getMyResults = async (
-  req: AuthRequest,
+  req: Request,
   res: Response
 ) => {
   const userId = req.user?.userId;

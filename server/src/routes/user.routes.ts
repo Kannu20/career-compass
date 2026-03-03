@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { authMiddleware, AuthRequest } from "../middlewares/auth.middleware";
+import { Request,Router } from "express";
+import { authMiddleware} from "../middlewares/auth.middleware";
 import User from "../models/User.model";
 
 const router = Router();
@@ -8,7 +8,7 @@ const router = Router();
  * @route GET /api/user/me
  * @desc Get logged-in user data
  */
-router.get("/me", authMiddleware, async (req: AuthRequest, res) => {
+router.get("/me", authMiddleware, async (req: Request, res) => {
   try {
     const user = await User.findById(req.user?.userId).select("-passwordHash");
 

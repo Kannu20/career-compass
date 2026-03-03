@@ -1,8 +1,8 @@
-import { Response, NextFunction } from "express";
-import { AuthRequest } from "./auth.middleware";
+import { Request, Response, NextFunction } from "express";
+// import { AuthRequest } from "./auth.middleware";
 
 export const requireVerifiedEmail = (
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {

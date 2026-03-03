@@ -1,4 +1,7 @@
-export const getAdminAnalytics = async (req, res) => {
+import { Request, Response } from "express";
+import User from "../../models/User.model";
+
+export const getAdminAnalytics = async (req: Request, res: Response) => {
   try {
     const now = new Date();
     const sixMonthsAgo = new Date();
