@@ -8,6 +8,7 @@ import {
   ClipboardList,
   User,
 } from "lucide-react";
+import { JSX } from "react";
 
 export default function TPOSidebar() {
   return (

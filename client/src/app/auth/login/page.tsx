@@ -22,6 +22,14 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const postLoginRedirect = (user: any) => {
+  if (user.roleStatus === "pending") {
+    router.replace("/approval-pending");
+    return;
+  }
+  postLoginRedirect(user);
+  
+};
 
   const handleLogin = async () => {
     setError("");
