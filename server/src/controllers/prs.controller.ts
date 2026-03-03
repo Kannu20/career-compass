@@ -82,9 +82,9 @@
 // };
 
 
-import { Response } from "express";
+import { Request, Response } from "express";
 import TestAttemptModel from "../models/TestAttempt.model";
-import { AuthRequest } from "../middlewares/auth.middleware";
+// import { AuthRequest } from "../middlewares/auth.middleware";
 
 /**
  * Allowed categories (STRICT TYPE)
@@ -102,7 +102,7 @@ const WEIGHTS: Record<Category, number> = {
 };
 
 export const getPlacementReadinessScore = async (
-  req: AuthRequest,
+  req: Request,
   res: Response
 ) => {
   try {

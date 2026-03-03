@@ -44,14 +44,14 @@
 //   }
 // };
 
-import { Response } from "express";
-import { AuthRequest } from "../middlewares/auth.middleware";
+import { Request, Response } from "express";
+// import { AuthRequest } from "../middlewares/auth.middleware";
 import Dashboard from "../models/Dashboard.model";
 import User from "../models/User.model";
 import TestAttempt from "../models/TestAttempt.model";
 
 export const getStudentDashboard = async (
-  req: AuthRequest,
+  req: Request,
   res: Response
 ) => {
   try {
@@ -101,7 +101,20 @@ export const getStudentDashboard = async (
     const attempts = await TestAttempt.find({ userId });
 
     // Default skills
-    const skills = {
+    // const skills = {
+    //   dsa: 0,
+    //   core: 0,
+    //   projects: 0,
+    //   resume: 0,
+    // };
+    type Skill = "dsa" | "core" | "projects" | "resume";
+    const skillMap: Record<Skill, number[]> = {
+      dsa: [],
+      core: [],
+      projects: [],
+      resume: [],
+    };
+    const skills: Record<Skill, number> = {
       dsa: 0,
       core: 0,
       projects: 0,
@@ -121,9 +134,13 @@ export const getStudentDashboard = async (
       });
 
       // Calculate average per skill
-      (Object.keys(skillMap) as (keyof typeof skillMap)[]).forEach((skill) => {
+
+      (Object.keys(skillMap) as Skill[]).forEach((skill) => {
         if (skillMap[skill].length > 0) {
-          const sum = skillMap[skill].reduce((a, b) => a + b, 0);
+          const sum = skillMap[skill].reduce(
+            (a: number, b: number) => a + b,
+            0
+          );
           skills[skill] = Math.round(sum / skillMap[skill].length);
         }
       });

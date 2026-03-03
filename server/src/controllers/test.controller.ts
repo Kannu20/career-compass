@@ -3,7 +3,7 @@ import Test from "../models/Test.model";
 import Question from "../models/Question.model";
 import mongoose from "mongoose";
 import TestAttemptModel from "../models/TestAttempt.model";
-import { AuthRequest } from "../middlewares/auth.middleware";
+// import { AuthRequest } from "../middlewares/auth.middleware";
 /**
  * @route GET /api/tests
  * @desc  Get all available tests
@@ -250,7 +250,7 @@ export const getTestQuestions = async (req: Request, res: Response) => {
 // };
 
 
-export const submitTest = async (req: AuthRequest, res: Response) => {
+export const submitTest = async (req: Request, res: Response) => {
   try {
     const testId = req.params.id;
     const userId = req.user?.userId;
@@ -260,7 +260,7 @@ export const submitTest = async (req: AuthRequest, res: Response) => {
       return res.status(401).json({ status: "error", message: "Unauthorized" });
     }
 
-    if (!mongoose.Types.ObjectId.isValid(testId)) {
+    if (!testId || !mongoose.Types.ObjectId.isValid(testId)) {
       return res.status(400).json({ status: "error", message: "Invalid test ID" });
     }
 
