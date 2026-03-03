@@ -24,7 +24,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://career-compass-flame.vercel.app"
+      "https://career-compass-plum-five.vercel.appc"
     ],
     credentials: true,
   })
