@@ -42,8 +42,8 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };
-
 app.use(cors(corsOptions));
+app.options("/api/auth/firebase", cors(corsOptions));
 app.options(/.*/, cors(corsOptions));
 
 
