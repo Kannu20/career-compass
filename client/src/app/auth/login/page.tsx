@@ -22,15 +22,31 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+//   const postLoginRedirect = (user: any) => {
+//   if (user.roleStatus === "pending") {
+//     router.replace("/approval-pending");
+//     return;
+//   }
+//   postLoginRedirect(user);
+  
+// };
+
   const postLoginRedirect = (user: any) => {
   if (user.roleStatus === "pending") {
     router.replace("/approval-pending");
     return;
   }
-  postLoginRedirect(user);
-  
-};
 
+  if (user.role === "student") {
+    router.replace("/dashboard/student");
+  } else if (user.role === "mentor") {
+    router.replace("/dashboard/mentor");
+  } else if (user.role === "tpo") {
+    router.replace("/dashboard/tpo");
+  } else if (user.role === "admin") {
+    router.replace("/admin/dashboard");
+  }
+};
   const handleLogin = async () => {
     setError("");
     setLoading(true);
