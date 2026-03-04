@@ -20,18 +20,19 @@ app.use(express.urlencoded({ extended: true }));
 /* =====================
    CORS
 ===================== */
+
+
 app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://career-compass-plum-five.vercel.appc"
+      "https://career-compass-plum-five.vercel.app"
     ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
-
-app.options(/.*/, cors());
-
 
 /* =====================
    LOGGER
