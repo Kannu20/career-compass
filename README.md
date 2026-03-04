@@ -1,101 +1,87 @@
-🚀 CareerCompass
-AI-Driven Career Growth & Placement Preparation Platform
+AI-Driven Career Growth & Placement Intelligence Platform
+<p align="center">
 
-CareerCompass is a full-stack intelligent career development platform designed to help students track their technical skills, improve interview readiness, and prepare for placements efficiently.
+CareerCompass is a modern full-stack career intelligence platform designed to help students analyze their technical skills, track their placement readiness, and improve systematically using data-driven insights.
+</p>
 
-The platform combines AI insights, structured assessments, and performance analytics to guide students toward the right career path with measurable progress.
 
-🌟 Key Features
-🎯 Smart Career Tracking
 
-Track progress across essential placement areas:
+The system combines skill analytics, testing systems, and AI-driven recommendations to guide students toward stronger placement outcomes.
+
+🌟 Core Vision
+
+Help students measure, understand, and improve their placement readiness using intelligent analytics and structured career guidance.
+
+✨ Key Features
+📊 Career Readiness Analytics
+
+Students receive a placement readiness score based on multiple factors:
 
 Data Structures & Algorithms
 
-Core Computer Science Subjects
+Core Computer Science Concepts
 
-Projects & Practical Skills
+Project Strength
 
-Resume Strength
+Resume Quality
 
-CareerCompass generates an overall readiness score to evaluate a student's placement preparedness.
+This gives a clear understanding of career preparedness.
 
-📊 AI-Driven Performance Insights
+📈 Skill Visualization Dashboard
 
-Students receive detailed analytics including:
+CareerCompass provides interactive analytics:
 
-Skill radar charts
+Radar charts for skill distribution
 
-Performance breakdown by domain
+Bar charts for performance comparison
+
+Overall readiness score
 
 Personalized improvement suggestions
 
-This helps identify skill gaps quickly and improve strategically.
+🧠 Intelligent Career Guidance
 
-🧠 Placement Readiness Score
+The platform highlights skill gaps and improvement areas so students know exactly:
 
-CareerCompass calculates a comprehensive readiness score based on:
+What to study
 
-DSA performance
+Which skills to improve
 
-Core subject understanding
+How close they are to placements
 
-Project strength
+👨‍💼 Multi-Role System
 
-Resume quality
-
-This score helps students understand how close they are to being placement-ready.
-
-👨‍🏫 Mentor & TPO Collaboration
-
-The platform supports multiple roles:
+CareerCompass supports multiple roles:
 
 Role	Capabilities
 Student	Track skills, attempt tests, view insights
-Mentor	Guide students and evaluate performance
-TPO	Monitor placement readiness of students
-Admin	Manage users, approvals, and platform operations
-🔐 Secure Authentication
-
-Authentication system powered by:
-
-Firebase Authentication
-
-JWT-based session management
-
-Role-based access control
-
-Ensures secure and scalable user management.
-
-📈 Interactive Skill Visualization
-
-Students can view their growth through visual analytics:
-
-Radar charts
-
-Skill bar charts
-
-Overall performance score
-
-This creates a clear roadmap for improvement.
-
+Mentor	Guide students and analyze performance
+TPO	Monitor placement readiness
+Admin	Manage users and platform operations
 🧩 System Architecture
+flowchart TD
 
-CareerCompass follows a modern full-stack architecture:
+A[Client - Next.js Frontend]
+B[API Layer - Express.js Backend]
+C[Authentication - Firebase]
+D[Business Logic Layer]
+E[MongoDB Database]
 
-Frontend  → Next.js + React
-Backend   → Node.js + Express
-Database  → MongoDB
-Auth      → Firebase + JWT
-Deployment→ Vercel + Render
-Architecture Overview
-Client (Next.js)
-       ↓
-API Layer (Express)
-       ↓
-Business Logic
-       ↓
-MongoDB Database
+A --> B
+A --> C
+B --> D
+D --> E
+C --> B
+
+High Level Architecture
+Application Architecture
+Backend Architecture
+🧠 Skill Evaluation Model
+
+CareerCompass calculates readiness using:
+
+Each component contributes to the overall readiness score.
+
 🛠 Tech Stack
 Frontend
 
@@ -117,21 +103,21 @@ Node.js
 
 Express.js
 
-TypeScript
+REST API Architecture
 
-REST APIs
+TypeScript
 
 Database
 
 MongoDB
 
-Mongoose
+Mongoose ODM
 
 Authentication
 
 Firebase Authentication
 
-JWT
+JWT Session Tokens
 
 Dev Tools
 
@@ -146,39 +132,51 @@ Prettier
 📊 Platform Modules
 Student Dashboard
 
-View skill analytics
+Features:
 
-Track overall readiness score
-
-Analyze skill breakdown
-
-Assessment System
-
-Technical tests
+Skill analytics
 
 Performance tracking
 
-Skill evaluation
+Readiness score
+
+Improvement suggestions
+
+Test System
+
+Allows students to:
+
+Attempt technical tests
+
+Analyze performance
+
+Track skill growth
 
 Mentor Dashboard
 
-Evaluate students
+Mentors can:
+
+Review student progress
 
 Provide guidance
 
-Monitor performance trends
+Identify skill gaps
 
 Admin Panel
+
+Admin capabilities:
 
 Manage users
 
 Approve mentor/TPO roles
 
-Platform control
+Control platform operations
 
-🔐 Security Features
+🔐 Security Architecture
 
-CareerCompass implements several security layers:
+CareerCompass includes multiple security layers:
+
+Firebase ID token verification
 
 JWT authentication
 
@@ -186,15 +184,29 @@ Role-based access control
 
 Protected API routes
 
-Firebase token verification
+📂 Project Structure
+career-compass
+│
+├── client
+│   ├── app
+│   ├── components
+│   ├── hooks
+│   └── lib
+│
+├── server
+│   ├── controllers
+│   ├── models
+│   ├── routes
+│   ├── middleware
+│   └── config
+⚙️ Installation
 
-This ensures secure access to sensitive academic data.
+Clone repository
 
-📦 Installation & Setup
-Clone Repository
 git clone https://github.com/yourusername/career-compass.git
 cd career-compass
-Install Dependencies
+
+Install dependencies
 
 Frontend:
 
@@ -205,80 +217,42 @@ Backend:
 
 cd server
 npm install
-Environment Variables
 
-Create .env files.
-
-Example backend .env:
-
-PORT=5000
-MONGO_URI=your_mongodb_connection
-JWT_SECRET=your_secret_key
-FIREBASE_PROJECT_ID=your_project_id
-
-Frontend .env:
-
-NEXT_PUBLIC_API_BASE_URL=http://localhost:5000
-NEXT_PUBLIC_FIREBASE_API_KEY=your_key
-Run Project
-
-Backend:
+Run backend
 
 npm run dev
 
-Frontend:
+Run frontend
 
 npm run dev
-🚀 Deployment
+🌍 Deployment
 
-CareerCompass is deployed using modern cloud infrastructure:
+CareerCompass is deployed using:
 
 Frontend → Vercel
+
 Backend → Render
 
-🎯 Future Improvements
+🚀 Future Enhancements
 
-Planned enhancements include:
+Planned improvements:
 
-AI-based career recommendations
+AI-powered career recommendations
 
 Resume AI analysis
 
 Coding practice integration
 
-Company-wise placement preparation
+Interview preparation modules
 
 AI interview simulation
-
-📸 Project Preview
-
-(Add screenshots here)
-
-Example sections:
-
-Dashboard
-Skill Radar Chart
-Admin Panel
-Test System
-🤝 Contribution
-
-Contributions are welcome!
-
-Steps:
-
-Fork the repository
-
-Create a feature branch
-
-Commit changes
-
-Submit a pull request
 
 👨‍💻 Author
 
 Kannu
 
-B.Tech CSE (AI)
+B.Tech Computer Science (AI)
+
 Full Stack Developer | AI Enthusiast
 
 ⭐ Support
@@ -289,6 +263,6 @@ If you like this project:
 🍴 Fork the project
 📢 Share with others
 
-💡 Project Vision
+💡 Project Mission
 
-CareerCompass aims to become a comprehensive career intelligence platform that empowers students with data-driven insights and structured preparation tools to succeed in technical careers.
+CareerCompass aims to become a comprehensive career intelligence system that helps students prepare smarter, improve faster, and succeed in technical careers.
