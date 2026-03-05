@@ -89,57 +89,44 @@ import {
   FolderKanban,
   FileText,
   User,
+  X,
 } from "lucide-react";
 
 const menuItems = [
-  {
-    label: "Dashboard",
-    href: "/dashboard/student",
-    icon: LayoutDashboard,
-  },
-  {
-    label: "Tests",
-    href: "/dashboard/student/tests",
-    icon: ClipboardList,
-  },
-  {
-    label: "Projects",
-    href: "/dashboard/student/projects",
-    icon: FolderKanban,
-  },
-  {
-    label: "Resume",
-    href: "/dashboard/student/resume",
-    icon: FileText,
-  },
-  {
-    label: "Profile",
-    href: "/dashboard/student/profile",
-    icon: User,
-  },
+  { label: "Dashboard", href: "/dashboard/student", icon: LayoutDashboard },
+  { label: "Tests", href: "/dashboard/student/tests", icon: ClipboardList },
+  { label: "Projects", href: "/dashboard/student/projects", icon: FolderKanban },
+  { label: "Resume", href: "/dashboard/student/resume", icon: FileText },
+  { label: "Profile", href: "/dashboard/student/profile", icon: User },
 ];
 
-export default function StudentSidebar() {
+export default function StudentSidebar({
+  closeSidebar,
+}: {
+  closeSidebar?: () => void;
+}) {
   const pathname = usePathname();
 
   return (
-    <aside
-      className="
-        w-full
-        sm:w-64
-        h-full
-        sm:min-h-screen
-        p-4
-        overflow-y-auto
-      "
-    >
-      {/* LOGO */}
-      <div className="mb-8 text-lg sm:text-xl font-semibold tracking-wide truncate">
-        CareerCompass
+    <aside className="h-full w-64 p-4 bg-gradient-to-b from-black to-slate-900">
+
+      {/* HEADER */}
+      <div className="flex items-center justify-between mb-8">
+
+        <h2 className="text-lg font-semibold">CareerCompass</h2>
+
+        <button
+          className="sm:hidden"
+          onClick={closeSidebar}
+        >
+          <X size={20} />
+        </button>
+
       </div>
 
       {/* MENU */}
       <nav className="space-y-1">
+
         {menuItems.map((item) => {
           const isActive =
             item.href === "/dashboard/student"
@@ -151,7 +138,8 @@ export default function StudentSidebar() {
             <Link
               key={item.label}
               href={item.href}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition w-full
+              onClick={closeSidebar}
+              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition
                 ${
                   isActive
                     ? "bg-indigo-600 text-white"
@@ -159,7 +147,7 @@ export default function StudentSidebar() {
                 }`}
             >
               <item.icon size={18} />
-              <span className="truncate">{item.label}</span>
+              {item.label}
             </Link>
           );
         })}

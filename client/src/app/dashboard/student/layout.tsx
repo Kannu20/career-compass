@@ -22,34 +22,38 @@ export default function DashboardLayout({
         </div> */}
       <div className="flex min-h-screen bg-black text-white">
 
-        {/* MOBILE OVERLAY */}
+        {/* Overlay */}
         {open && (
           <div
-            className="fixed inset-0 bg-black/50 z-40 sm:hidden"
+            className="fixed inset-0 bg-black/60 z-40 sm:hidden"
             onClick={() => setOpen(false)}
           />
         )}
 
-        {/* SIDEBAR */}
+        {/* Sidebar */}
         <div
-          className={`fixed z-50 inset-y-0 left-0 transform 
+          className={`fixed top-0 left-0 h-full w-64 z-50
+        bg-black/40 border-r border-white/10 backdrop-blur-lg p-6
+        transform transition-transform duration-300
         ${open ? "translate-x-0" : "-translate-x-full"}
-        transition-transform duration-300
-        sm:translate-x-0 sm:static sm:z-auto`}
+        sm:translate-x-0`}
         >
-          <Sidebar />
+          <Sidebar closeSidebar={() => setOpen(false)} />
         </div>
 
-        {/* MAIN CONTENT */}
+        {/* Main Content */}
         <div className="flex-1">
 
-          {/* MOBILE HEADER */}
-          <header className="flex items-center gap-3 p-4 border-b border-white/10 sm:hidden">
+          {/* Mobile Header */}
+          <header className="flex items-center justify-between p-4 border-b border-white/10 sm:hidden">
+
             <button onClick={() => setOpen(true)}>
               <Menu size={22} />
             </button>
 
             <h1 className="font-semibold">CareerCompass</h1>
+
+            <div className="w-6" />
           </header>
 
           <main className="p-4 sm:p-6">{children}</main>
