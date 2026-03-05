@@ -188,15 +188,15 @@ export default function AdminApprovalsPage() {
 
   if (loading) {
     return (
-      <div className="text-gray-400 flex items-center gap-2">
-        <Loader2 className="animate-spin" />
+      <div className="flex items-center gap-2 text-gray-400">
+        <Loader2 className="animate-spin" size={18} />
         Loading pending approvals...
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full">
 
       {/* HEADER */}
       <div>
@@ -214,17 +214,17 @@ export default function AdminApprovalsPage() {
         </div>
       ) : (
 
-        /* TABLE WRAPPER FOR MOBILE */
-        <div className="overflow-x-auto rounded-xl border border-white/10 bg-white/5">
+        /* TABLE CONTAINER */
+        <div className="w-full overflow-x-auto rounded-xl border border-white/10 bg-white/5">
 
-          <table className="min-w-[700px] w-full text-sm">
+          <table className="w-full text-sm min-w-[520px]">
             <thead className="bg-white/10 text-gray-300">
               <tr>
-                <th className="p-4 text-left">Name</th>
-                <th className="p-4 text-left">Email</th>
-                <th className="p-4 text-left">Role</th>
-                <th className="p-4 text-left">Requested On</th>
-                <th className="p-4 text-center">Actions</th>
+                <th className="px-4 py-3 text-left font-medium">Name</th>
+                <th className="px-4 py-3 text-left font-medium">Email</th>
+                <th className="px-4 py-3 text-left font-medium">Role</th>
+                <th className="px-4 py-3 text-left font-medium">Requested</th>
+                <th className="px-4 py-3 text-center font-medium">Actions</th>
               </tr>
             </thead>
 
@@ -234,36 +234,33 @@ export default function AdminApprovalsPage() {
                   key={u._id}
                   className="border-t border-white/10 hover:bg-white/5 transition"
                 >
-                  <td className="p-4 whitespace-nowrap">
+                  <td className="px-4 py-3 whitespace-nowrap">
                     {u.name}
                   </td>
 
-                  <td className="p-4 text-gray-300 break-all">
+                  <td className="px-4 py-3 text-gray-300 break-all">
                     {u.email}
                   </td>
 
-                  <td className="p-4 capitalize">
+                  <td className="px-4 py-3 capitalize">
                     {u.requestedRole}
                   </td>
 
-                  <td className="p-4 text-gray-400 whitespace-nowrap">
+                  <td className="px-4 py-3 text-gray-400 whitespace-nowrap">
                     {new Date(u.createdAt).toLocaleDateString()}
                   </td>
 
-                  <td className="p-4">
-                    <div className="flex justify-center gap-3">
+                  <td className="px-4 py-3">
+                    <div className="flex items-center justify-center gap-2">
 
                       <button
                         onClick={() => approve(u._id)}
                         disabled={actionId === u._id}
-                        className="p-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60"
+                        className="flex items-center justify-center p-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 transition"
                         title="Approve"
                       >
                         {actionId === u._id ? (
-                          <Loader2
-                            size={16}
-                            className="animate-spin"
-                          />
+                          <Loader2 size={16} className="animate-spin" />
                         ) : (
                           <Check size={16} />
                         )}
@@ -272,7 +269,7 @@ export default function AdminApprovalsPage() {
                       <button
                         onClick={() => reject(u._id)}
                         disabled={actionId === u._id}
-                        className="p-2 rounded-lg bg-red-600 hover:bg-red-700 disabled:opacity-60"
+                        className="flex items-center justify-center p-2 rounded-lg bg-red-600 hover:bg-red-700 disabled:opacity-60 transition"
                         title="Reject"
                       >
                         <X size={16} />
@@ -280,11 +277,13 @@ export default function AdminApprovalsPage() {
 
                     </div>
                   </td>
+
                 </tr>
               ))}
             </tbody>
 
           </table>
+
         </div>
       )}
     </div>
