@@ -364,7 +364,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser 🚀
 
 <img src="https://avatars.githubusercontent.com/yourusername" width="100px" style="border-radius:50%"/>
 
-### **Kannu**
+### **Kanishak**
 *B.Tech Computer Science (AI)*
 
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github)](https://github.com/yourusername)
