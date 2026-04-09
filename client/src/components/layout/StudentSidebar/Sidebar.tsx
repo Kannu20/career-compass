@@ -108,7 +108,7 @@ export default function StudentSidebar({
   const pathname = usePathname();
 
   return (
-    <aside className="h-full w-64 p-4 bg-gradient-to-b from-black to-slate-900">
+    <aside className=" h-full w-64 p-4 bg-gradient-to-b from-black to-slate-900">
 
       {/* HEADER */}
       <div className="flex items-center justify-between mb-8">
